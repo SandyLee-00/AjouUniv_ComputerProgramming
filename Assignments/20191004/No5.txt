@@ -1,0 +1,40 @@
+/*
+cm로 표현된 키를 입력하여 피트와 인치로 변환하는 프로그램을 작성하시
+오. 1피트는 12인치이고 1인치는 2.54cm 이다
+순서 : 키를 입력 -> 피트와 인치 단위를 계산 -> 피트와 인치 출력
+요소 : cm, feet, inch, 변환식
+포인트 : 형변환하기, 변환식을 이용해 피트와 인치 구하기
+1. 확장변환 : 데이터를 입력할 때 double 형에 5를 넣어 5.0이 된다.
+2. 축소변환 : 데이터를 입력할 때 int 형에 4.7을 넣어 4가 된다.
+3. 배정문변환 : 정수 연산 시 char형, short형은 int형으로 변환한다.
+4. 승급변환 : int형 5와 double형 1.5를 더하면 double형 6.5가 된다.
+5. 강제형변환 : (int)6.7을 하면 강제로 형이 바뀌어 6이 된다.
+이 중에서 강제형변환을 사용한다.
+
+피트 구하는 식 : CM_PER_FEET = (12 * 2.54)을 이용해 (int)cm / CM_PER_FEET;식을 쓴다.
+인치 구하는 식 : cm에서 피트를 뺸 값을 2.54로 나누어 남은 인치를 구한다.
+*/
+
+#include <stdio.h> //std input, output을 포함한다.
+
+int main() { //main 함수를 넣어 프로그램을 실행한다.
+
+	int cm; //cm인트형 선언
+	int feet; //feet인트형 선언
+	double inch; //inch 더블형 선언
+	const double CM_PER_FEET = (12 * 2.54); //변환 비율 상수 변수로 선언
+
+	printf("키를 입력하시오(cm) : "); //키입력 안내
+	scanf_s("%d", &cm); //cm 입력받기
+	if (cm <= 0) { //키 0보다 작거나 같은 값 입력 시
+		printf("키는 양수여야 합니다."); //오류메시지 출력하고 종료함.
+		return 0;
+	}
+
+	feet = (int)cm / CM_PER_FEET; //CM_PER_FEET = (12 * 2.54)을 이용해 (int)cm / CM_PER_FEET;식을 쓴다.
+	inch = (cm - feet * CM_PER_FEET) / 2.54; // cm에서 피트를 뺸 값을 2.54로 나누어 남은 인치를 구한다.
+
+	printf("%dcm는 %d피트 %lf인치입니다.", cm, feet, inch); //cm(int), feet(int), inch(double)형을 출력한다.
+
+	return 0; //끝내기
+}

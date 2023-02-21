@@ -1,0 +1,129 @@
+/*
+[과제#7] 나만의 티켓 예매 프로그램
+문제: 이번주 실습#2로 수행하는 극장 예약 프로그램에 대해 이해하고,
+단순히 배열을 이용한 좌석 예약 기능 뿐만 아니라
+지금까지 배운 내용을 바탕으로 공연티켓 예매를 진행할 수 있는
+기능을 각자 개별적으로 고민해서 정의하고, 이를 구현한다
+
+포함해야 할 기능
+1. 공연제목 선택
+2. 성인/청소년 몇 장 구매할 것인지
+3. 장소 및 공연시간 선택
+4. 좌석 예약
+5. 결제금액 계산
+6. 최종 선택한 내용 및 결제금액 결과 출력
+
+제목/장소&시간/좌석
+0-9/0-9/0-9
+
+000-999까지 총 좌석, 설정에서 제작->이용가능하도록 바꿈
+
+제목알려줌 제목에서 선택, 장소시간 알려줌, 장소시간 선택, 좌석 알려줌, 좌석 선택
+
+설정에게 들어가야할 정보 :
+1. 제목
+2. 장소시간
+3. 좌석 개수
+
+이용자에게 들어가야할 정보 :
+1. 성인, 청소년 구매 장 수
+2. 결제금액, 남은 돈
+
+결제에서 들어가야 할 정보 :
+1. 투입금액
+2. 결제금액
+*/
+
+int ID[1000];
+
+#include <stdio.h>
+
+void setting() {
+	int input = 0;
+	while (1) {
+		printf("입력하려면 1, 입력을 그만하려면 0");
+		scanf_s("%d", &input);
+
+		if (input == 1) {
+			int title_code, place_time_code;
+			printf("제목 코드 :");
+			scanf("%d", title_code);
+			printf("장소시간 코드 :");
+			scanf("%d", place_time_code);
+			seat_avail(title_code, place_time_code);
+		}
+	}
+
+}
+
+void seat_avail(int title, int place_time){
+	int seat_temp = title * 100 + place_time * 10;
+
+	for (int i = seat_temp; i < seat_temp + 9; i++) {
+		ID[seat_temp] = 1;
+		//예약 가능한 자리 1으로 만들기
+	}
+}
+
+
+int main() {
+	int choice_code;
+
+	prinft("영화 선택 1 : 해리포터 || 2. 어벤져스 || 3 : 겨울왕국\n");
+	prinft("시간,상영관 선택 1 : 10시A || 2. 12시A || 3 : 13시B\n");
+	prinft("4 : 16시A || 5. 19시A || 6 : 15시B\n");
+
+	printf("영화코드와 시간,상영관 코드를 띄어쓰기없이 입력하시오");
+	scanf("%d", &choice_code);
+
+	printf("현재 이용가능한 자리입니다\n");
+	printf("-------------------------------\n");
+	printf(" 1 2 3 4 5 6 7 8 9 10\n");
+	printf("-------------------------------\n");
+
+	for(int i = choice_code; i < choice_code + )
+
+
+
+	return 0;
+}
+
+/*
+int main(void)
+{
+	char reserve = 0;
+	int seat_number, i;
+	int seats[10] = { 0 };
+	while (1)
+	{
+		printf("좌석을 예약하시겠습니까?(y 또는n) ");
+		scanf_s("%c", &reserve);
+
+		if (reserve == 'y') {
+
+			printf("-------------------------------\n");
+			printf(" 1 2 3 4 5 6 7 8 9 10\n");
+			printf("-------------------------------\n");
+
+			for (i = 0; i < SIZE; i++)
+				printf(" %d", seats[i]);
+			printf("\n");
+			printf("몇번째 좌석을 예약하시겠습니까");
+			scanf_s("%d", &seat_number);
+			if (seat_number <= 0 || seat_number > SIZE) {
+				printf("1부터 10사이의 숫자를 입력하세요\n");
+				continue;
+			}
+			if (seats[seat_number - 1] == 0) { // 예약되지 않았으면
+				seats[seat_number - 1] = 1;
+				printf("예약되었습니다.\n");
+			}
+			else // 이미 예약되었으면
+				printf("이미 예약된 자리입니다.\n");
+		}
+
+		else if (reserve == 'n')
+			exit(1);
+	}
+	return 0;
+}*/

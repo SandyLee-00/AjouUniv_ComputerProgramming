@@ -1,0 +1,174 @@
+/*
+요구사항 : [과제#3]에서의 자판기 프로그램에 반복 기능을 추가해서
+메뉴를 아래와 같이 만들고 각 메뉴 선택에 따라서
+잔돈 계산을 수행하는 프로그램
+금액을 투입하세요:
+********* 자판기 메뉴 선택 *********
+1. 일반커피(250원)
+2. 고급커피(500원)
+3. 건강음료(1000원)
+4. 에너지드링크(1500원)
+5. 종료
+메뉴를 선택하세요:
+선택한 메뉴를 몇 개나 구매하시겠습니까?
+거스름돈은 아래와 같습니다.
+힌트 : 반복문을 이용해야 구현 가능합니다.
+5번 메뉴를 선택할 때까지 계속 반복해서 실행
+
+순서 : 돈입력 -> 메뉴선택 -> 1부터 4메뉴 5종류
+-> 메뉴선택해서 가진 돈에서 빼기 -> 사용가능하면 음료주고 아니면 오류출력
+-> 사용자가 종료할때까지 반복하기 -> 종료한다하면 거스름돈 출력함수
+-> 거스름돈 500원부터 50원까지 출력 끝내기
+*/
+
+#include <stdio.h>  //std input, output을 포함한다.
+
+void print_chage(int total_change) { //거스름돈을 출력해주는 함수 인자로 거스름돈을 받는다.
+
+
+	printf("*******거스름돈**********\n\n"); //거스름돈 안내 문구 출력
+
+
+	printf("총 거스름돈 %d 원\n", total_change); //총 거스름돈 출력
+
+	int coin_500 = total_change / 500; //500원 개수 구하기, 빼고 난 나머지에서 500원 최대지급
+	total_change = total_change - coin_500 * 500; //지급한 500원을 뺴고 나머지 저장
+	printf("500원짜리 동전 %d 개\n", coin_500); //500원 개수 출력
+
+	int coin_100 = total_change / 100; //100원 개수 구하기, 빼고 난 나머지에서 100원 최대지급
+	total_change = total_change - coin_100 * 100; //지급한 100원을 뺴고 나머지 저장
+	printf("100원짜리 동전 %d 개\n", coin_100); //100원 개수 출력
+
+	int coin_50 = total_change / 50; //50원 개수 구하기, 빼고 난 나머지에서 50원 최대지급
+	total_change = total_change - coin_50 * 50; //지급한 50원을 뺴고 나머지 저장
+	printf("50원짜리 동전 %d 개\n", coin_50); //50원 개수 출력
+}
+
+int choose_meun(int input_money) { //메뉴선택함수, 인자로 입력받는 돈을 넣는다.
+
+	int cup_of_drinks = 0; //음료수 개수
+	int used_money, sumof_used_money = 0; //사용한 돈, 전체 사용한 돈
+	int kind_of_drinks = 0; //음료수 종류
+
+	int left_money = input_money; //남은 돈에 입력한 돈 넣기
+
+	while (1) { //무한반복, 5번을 선택하면 함수에서 나가서 루프가 끝난다.
+		printf("남은 돈은 %d원 입니다\n\n", left_money); //남은 돈 출력
+
+		printf("아래 매뉴 중 하나를 선택하세요\n"); //메뉴선택 출력
+
+		printf("1. 일반커피(250원)\n"); //1
+		printf("2. 고급커피(500원)\n"); //2
+		printf("3. 건강음료(1000원)\n"); //3
+		printf("4. 에너지드링크(1500원)\n"); //4
+		printf("5. 선택하지 않는다.\n"); //5
+
+		scanf_s("%d", &kind_of_drinks); //음료종류 입력
+
+		switch (kind_of_drinks) //음료 종류에 따라 switch-case문 실행
+		{
+		case 1: //1. 일반커피(250원)
+			printf("몇 개 뽑을까요? : "); ////잔 구매 수 문구 출력
+			scanf_s("%d", &cup_of_drinks); //잔 구매 수
+			used_money = cup_of_drinks * 250; //사용된 돈 = 잔수 곱하기 금액
+			left_money = left_money - used_money; //남은돈에 사용한 돈 빼서 저장
+			if (left_money >= 0) { //남은 돈이 0보다 커서 적절한 값
+				sumof_used_money = sumof_used_money + used_money;
+				//사용한 돈의 합에 사용한 돈 더해 저장
+				printf("일반커피(250원) %d개 나왔습니다.", cup_of_drinks);
+				//실행된 음료종류, 개수 출력해서 사용자에게 나온 것 안내
+			}
+			else { //남은 돈이 0보다 작아 적절한 값 아님
+				printf("사용한 돈 > 입력한 돈\n돈이 사용되지 않습니다.\n");
+				//오류메시지 출력
+				left_money = left_money + used_money;
+				//다시 사용한 돈 남은돈에 넣어서 저장하기
+			}
+			break; //밑에 내용 실행 안하고 와일 문 돌아감
+
+		case 2: //2. 고급커피(500원)
+			printf("몇 개 뽑을까요? : "); ////잔 구매 수 문구 출력
+			scanf_s("%d", &cup_of_drinks); //잔 구매 수
+			used_money = cup_of_drinks * 500; //사용된 돈 = 잔수 곱하기 금액
+			left_money = left_money - used_money; //남은돈에 사용한 돈 빼서 저장
+			if (left_money >= 0) { //남은 돈이 0보다 커서 적절한 값
+				sumof_used_money = sumof_used_money + used_money;
+				//사용한 돈의 합에 사용한 돈 더해 저장
+				printf("고급커피(500원) %d개 나왔습니다.", cup_of_drinks);
+				//실행된 음료종류, 개수 출력해서 사용자에게 나온 것 안내
+			}
+			else { //남은 돈이 0보다 작아 적절한 값 아님
+				printf("사용한 돈 > 입력한 돈\n돈이 사용되지 않습니다.\n");
+				//오류메시지 출력
+				left_money = left_money + used_money;
+				//다시 사용한 돈 남은돈에 넣어서 저장하기
+			}
+			break;//밑에 내용 실행 안하고 와일 문 돌아감
+
+		case 3: //3. 건강음료(1000원)
+			printf("몇 개 뽑을까요? : "); ////잔 구매 수 문구 출력
+			scanf_s("%d", &cup_of_drinks); //잔 구매 수
+			used_money = cup_of_drinks * 1000; //사용된 돈 = 잔수 곱하기 금액
+			left_money = left_money - used_money; //남은돈에 사용한 돈 빼서 저장
+			if (left_money >= 0) { //남은 돈이 0보다 커서 적절한 값
+				sumof_used_money = sumof_used_money + used_money;
+				//사용한 돈의 합에 사용한 돈 더해 저장
+				printf("건강음료(1000원) %d개 나왔습니다.", cup_of_drinks);
+				//실행된 음료종류, 개수 출력해서 사용자에게 나온 것 안내
+			}
+			else {//남은 돈이 0보다 작아 적절한 값 아님
+				printf("사용한 돈 > 입력한 돈\n돈이 사용되지 않습니다.\n");
+				//오류메시지 출력
+				left_money = left_money + used_money;
+				//다시 사용한 돈 남은돈에 넣어서 저장하기
+			}
+			break; //밑에 내용 실행 안하고 와일 문 돌아감
+
+		case 4: //4. 에너지드링크(1500원)
+			printf("몇 개 뽑을까요? : "); ////잔 구매 수 문구 출력
+			scanf_s("%d", &cup_of_drinks); //잔 구매 수
+			used_money = cup_of_drinks * 1500; //사용된 돈 = 잔수 곱하기 금액
+			left_money = left_money - used_money; //남은돈에 사용한 돈 빼서 저장
+			if (left_money >= 0) { //남은 돈이 0보다 커서 적절한 값
+				sumof_used_money = sumof_used_money + used_money;
+				//사용한 돈의 합에 사용한 돈 더해 저장
+				printf("에너지드링크(1500원) %d개 나왔습니다.", cup_of_drinks);
+				//실행된 음료종류, 개수 출력해서 사용자에게 나온 것 안내
+			}
+			else {//남은 돈이 0보다 작아 적절한 값 아님
+				printf("사용한 돈 > 입력한 돈\n돈이 사용되지 않습니다.\n");
+				//오류메시지 출력
+				left_money = left_money + used_money;
+				//다시 사용한 돈 남은돈에 넣어서 저장하기
+			}
+			break;//밑에 내용 실행 안하고 와일 문 돌아감
+
+		case 5: //종료를 눌렀을 경우
+			printf("총 사용금액은 %d 입니다.\n\n", sumof_used_money);
+			//총 사용금액 알려줌
+			return input_money - sumof_used_money;
+			//넣은 돈 - 총 사용금액 해 잔돈 반환
+			break; //밑에 내용 실행 안하고 와일 문 종료함
+
+		default: //1부터 5말고 다른 값 입력했을때
+			printf("잘못된 음료종류입니다.\n다시입력하세요\n");
+			//오류메시지 출력함
+			break; //밑에 내용 실행 안하고 와일 돌아감
+		}
+
+	}
+}
+
+int main() {
+
+	int input_money, total_change = 0;
+	//입력할 돈, 잔 수, 사용된 돈, 거스름돈
+
+	printf("금액을 투입하세요 : "); //금액 투입 문구 출력
+	scanf_s("%d", &input_money); //사용자로부터 자판기에 넣는 돈 입력
+
+	total_change = choose_meun(input_money); //메뉴 고르는 함수 실행, 남은돈 구하기
+	print_chage(total_change); //남은돈 출력하는 함수 실행
+
+	return 0;
+}

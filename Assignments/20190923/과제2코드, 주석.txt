@@ -1,0 +1,43 @@
+#include<stdio.h>
+
+int main() {
+	
+	/*자판기 잔돈계산 프로그램
+	사용자로부터 자판기에 넣는 돈 입력 -> 커피 잔 구매 수 -> 거스름돈 주기(500원부터 50원까지)
+	커피 한잔의 가격은 250원
+	가격 = 커피 잔 수 * 250
+	입력 : 돈, 잔 수
+	출력 : 총 사용금액, 거스름돈 500원, 100원, 50원
+	연산 : cost = coffee * 250
+	*/
+	int input_money, cup_of_coffee, used_money, total_change, coin_500, coin_100, coin_50 = 0;
+	//입력할 돈, 잔 수, 사용된 돈, 거스름돈, 500원 개수, 100원 개수, 50원 개수
+	printf("돈을 입력하세요 : "); 
+	scanf_s("%d", &input_money); //사용자로부터 자판기에 넣는 돈 입력
+
+	printf("커피를 몇 잔 뽑을까요? : ");
+	scanf_s("%d", &cup_of_coffee); //커피 잔 구매 수
+
+	used_money = cup_of_coffee * 250; //커피 한잔의 가격은 250원, 가격 = 커피 잔 수 * 250, cost = coffee * 250
+
+	printf("총 사용금액은 %d 입니다.\n\n", used_money); //사용금액 출력
+
+	printf("*******거스름돈**********\n\n");
+
+	total_change = input_money - used_money; //거스름돈 = 입력한 돈 - 사용금액
+
+	coin_500 = total_change / 500; //500원 개수 구하기, 빼고 난 나머지에서 500원 최대지급
+	total_change = total_change - coin_500 * 500; //지급한 500원을 뺴고 나머지 저장
+	printf("500원짜리 동전 %d 개\n", coin_500); //500원 개수 출력
+
+	coin_100 = total_change / 100; //100원 개수 구하기, 빼고 난 나머지에서 100원 최대지급
+	total_change = total_change - coin_100 * 100; //지급한 100원을 뺴고 나머지 저장
+	printf("100원짜리 동전 %d 개\n", coin_100); //100원 개수 출력
+
+	coin_50 = total_change / 50; //50원 개수 구하기, 빼고 난 나머지에서 50원 최대지급
+	total_change = total_change - coin_50 * 50; //지급한 50원을 뺴고 나머지 저장
+	printf("50원짜리 동전 %d 개\n", coin_50); //50원 개수 출력
+
+
+	return 0;
+}

@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+int main() {
+	/*본봉, 보너스, 세율을 입력받아 실 급여 계산 프로그램*/
+	int bonbong, bonus, total = 0; //0으로 초기화
+	double tax, tax_rate, real_income = 0; //0으로 초기화
+
+	printf("**********급여계산 프로그램(단위 : 만원)**********\n");
+
+	printf("본봉을 입력하세요 : "); //본봉입력, int 형
+	scanf_s("%d", &bonbong);
+
+	printf("보너스를 입력하세요 : "); //보너스입력, int 형
+	scanf_s("%d", &bonus);
+
+	printf("공제할 세율(%%)을 입력하세요 : "); //세율 입력, double 형, %출력위해 %%사용
+	scanf_s("%lf", &tax_rate); // %단위로 입력 받기 때문에 나중에 100으로 나눠줌
+
+	total = bonbong + bonus; //전체 = 본봉 + 보너스 로 계산
+	tax = total * tax_rate/100; //세금을 본봉에 세율을 곱해 계산, %로 입력받아 100 나눔, 세금액 구함
+	real_income = total - tax; //실제 수입을 계산, 본봉과 보너스를 합한 금액에서 세금을 뺌
+
+	printf("공제한 금액은 %lf 입니다.\n", tax); //세금액 출력해줌, double 사용
+	printf("실제 수령액은 %lf 입니다.", real_income); //실제 수령액 출력해줌, double 사용
+
+	return 0;
+}

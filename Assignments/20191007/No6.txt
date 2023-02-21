@@ -1,0 +1,44 @@
+/*
+No 6  표준 체중 계산 프로그램
+
+사용자로부터 키와 체중을 실수로 입력 받아서 표준 체중을 계산한 후에
+사용자의 체중과 비교하여 저체중인지, 표준인지, 과체중인지를 판단하는
+프로그램을 작성하시오. 표준 체중 계산식은 아래와 같다.
+표준체중 = (키-100)*0.9
+
+순서 : 체중과 키 입력 -> 출력함수에 넣음
+-> 표준체중과 비교해 상태 출력
+
+*/
+#include <stdio.h> //std input, output을 포함한다.
+
+
+void normal_weight(int height, int weight) {
+	//키와 무게 넣어 실행
+	double normal_w = ((double)height - 100) * 0.9;
+	//표준체중 구하는 식에 넣음
+	if (weight < normal_w) { //무게 < 표준체중
+		printf("표준체중은 %lf입니다. 현재 저체중입니다.", normal_w);
+		//무게 < 표준체중 저체중
+	}
+	else if (weight == normal_w) { //무게 = 표준체중
+		printf("표준체중은 %lf입니다. 현재 표준체중입니다.", normal_w);
+		//무게 = 표준체중 표준체중
+	}
+	else { //무게 > 표준체중
+		printf("표준체중은 %lf입니다. 현재 과체중입니다.", normal_w);
+		//무게 > 표준체중 과체중
+	}
+}
+
+int main() { //main 함수를 넣어 프로그램을 실행한다.
+	int height, weight = 0;
+	//키와 무게
+
+	printf("체중과 키를 입력하시오 : "); //체중과 키를 입력
+	scanf_s("%d %d", &weight, &height); //체중과 키를 입력
+
+	normal_weight(height, weight); //출력함수 실행
+
+	return 0;
+}

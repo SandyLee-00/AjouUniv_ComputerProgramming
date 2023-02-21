@@ -1,0 +1,94 @@
+/*
+ [과제#2]에서의 자판기 프로그램을 좀 더 개선하여
+메뉴를 아래와 같이 만들고 각 메뉴 선택에 따라서
+잔돈 계산을 수행하는 프로그램
+이 때, 투입한 금액이 사용한 금액보다 작으면
+“투입한 금액이 부족합니다.” 에러 처리
+
+금액을 투입하세요:
+아래 메뉴 중 하나를 선택하세요 :
+1. 일반커피(250원)
+2. 고급커피(500원)
+3. 건강음료(1000원)
+4. 에너지드링크(1500원)
+선택한 메뉴를 몇 개나 구매하시겠습니까?
+거스름돈은 아래와 같습니다
+
+조건문(if문) 을 이용해야 구현 가능합니다
+순서 : 돈 입력 -> 음료수 종류 선택 -> 맞는 선택, 돈 초과 안하면 돈 사용하기 -> 거스름돈 출력
+요소 :  kind_of_drinks, proper_value, input_money, cup_of_drinks, used_money, total_change, coin_500, coin_100, coin_50
+포인트 : 적절한지 if문을 이용해 판단하기 1. 음료수 종류, 2. 입력돈 사용돈이 초과 안하다도록 판단
+*/
+
+#include <stdio.h>  //std input, output을 포함한다.
+
+int main() {
+
+
+	int input_money, cup_of_drinks, used_money, total_change, coin_500, coin_100, coin_50 = 0;
+	//입력할 돈, 잔 수, 사용된 돈, 거스름돈, 500원 개수, 100원 개수, 50원 개수
+
+	int kind_of_drinks, proper_value = 0; //음료수 종류 선택, 적절한지 판단
+
+	printf("금액을 투입하세요 : "); //금액 투입 문구 출력
+	scanf_s("%d", &input_money); //사용자로부터 자판기에 넣는 돈 입력
+
+	printf("아래 매뉴 중 하나를 선택하세요\n"); //메뉴선택 출력
+	printf("1. 일반커피(250원)\n"); //1
+	printf("2. 고급커피(500원)\n"); //2
+	printf("3. 건강음료(1000원)\n"); //3
+	printf("4. 에너지드링크(1500원)\n"); //4
+	scanf_s("%d", &kind_of_drinks);
+
+	printf("몇 개 뽑을까요? : "); ////잔 구매 수 문구 출력
+	scanf_s("%d", &cup_of_drinks); //잔 구매 수
+
+	if (kind_of_drinks == 1) { //1번선택 시
+		used_money = cup_of_drinks * 250; //사용된 돈 = 잔수 곱하기 금액
+		proper_value = ((input_money - used_money) >= 0) ? 1 : 0;
+	} //적절한지 판단, 넣은돈 - 사용한 돈이 양수, 같으면 적절, 음수면 부적절
+
+	if (kind_of_drinks == 2) { //2번선택 시
+		used_money = cup_of_drinks * 500; //사용된 돈 = 잔수 곱하기 금액
+		proper_value = ((input_money - used_money) >= 0) ? 1 : 0;
+	}//적절한지 판단, 넣은돈 - 사용한 돈이 양수, 같으면 적절, 음수면 부적절
+
+	if (kind_of_drinks == 3) { //3번선택 시
+		used_money = cup_of_drinks * 1000; //사용된 돈 = 잔수 곱하기 금액
+		proper_value = ((input_money - used_money) >= 0) ? 1 : 0;
+	}//적절한지 판단, 넣은돈 - 사용한 돈이 양수, 같으면 적절, 음수면 부적절
+
+	if (kind_of_drinks == 4) { //4번선택 시
+		used_money = cup_of_drinks * 1500; //사용된 돈 = 잔수 곱하기 금액
+		proper_value = ((input_money - used_money) >= 0) ? 1 : 0;
+	}//적절한지 판단, 넣은돈 - 사용한 돈이 양수, 같으면 적절, 음수면 부적절
+
+	if (kind_of_drinks != 1 && kind_of_drinks != 2 && kind_of_drinks != 3 && kind_of_drinks != 4
+		|| proper_value == 0) {
+		//음료 선택 시 1도 아니고 2도 아니고 3도 아니고 4도 아니면 다시 입력 프로그램 종료
+		//1 2 3 4 선택 후 넣은돈 - 사용한 돈이 음수면 다시 입력 프로그램 종료
+		printf("다시 입력하세요.");
+		return 0;
+	}
+
+	printf("총 사용금액은 %d 입니다.\n\n", used_money); //적절하게 사용했다면 프로그램을 종료하지 않고 사용금액 출력
+
+	printf("*******거스름돈**********\n\n"); //거스름돈 안내 문구 출력
+
+	total_change = input_money - used_money; //거스름돈 = 입력한 돈 - 사용금액
+	printf("총 거스름돈 %d 원\n", total_change); //총 거스름돈 출력
+
+	coin_500 = total_change / 500; //500원 개수 구하기, 빼고 난 나머지에서 500원 최대지급
+	total_change = total_change - coin_500 * 500; //지급한 500원을 뺴고 나머지 저장
+	printf("500원짜리 동전 %d 개\n", coin_500); //500원 개수 출력
+
+	coin_100 = total_change / 100; //100원 개수 구하기, 빼고 난 나머지에서 100원 최대지급
+	total_change = total_change - coin_100 * 100; //지급한 100원을 뺴고 나머지 저장
+	printf("100원짜리 동전 %d 개\n", coin_100); //100원 개수 출력
+
+	coin_50 = total_change / 50; //50원 개수 구하기, 빼고 난 나머지에서 50원 최대지급
+	total_change = total_change - coin_50 * 50; //지급한 50원을 뺴고 나머지 저장
+	printf("50원짜리 동전 %d 개\n", coin_50); //50원 개수 출력
+
+	return 0;
+}

@@ -1,0 +1,29 @@
+/*
+지난주 Chapter 5 실습#5 에서는 조건연산자를 이용해서 최대값 찾는
+프로그램을 작성하였다. 이번에는 사용자로부터 정수 3개를 입력 받아서
+if~else 문을 사용하여 가장 작은 값을 찾는 프로그램을 작성하시오.
+힌트 : 중첩된 if~else 문을 사용
+먼저 x, y 를 비교하여 작은 값을 찾고, 이 값을 z 와 비교
+*/
+#include <stdio.h>
+int main() {
+	int first, second, third, result = 0;
+
+	scanf_s("%d %d %d", &first, &second, &third);
+
+	if (first <= second) {
+		result = first;
+		if (third <= first) {
+			result = third;
+		}
+	}
+	else {
+		result = second;
+		if (third <= second) {
+			result = third;
+		}
+	}
+	
+	printf("가장 작은 정수는 %d입니다", result);
+return 0;
+}

@@ -1,0 +1,64 @@
+/*
+No7 :   가위바위보 프로그램
+
+컴퓨터와 가위바위보 게임을 하는 프로그램을 작성하시오.
+컴퓨터는 사용자에게 알리지 않고 가위,바위,보 중에서 임의의 하나를
+선택한다. 사용자는 프로그램의 입력안내 메시지에 따라서 3개 중에서
+하나를 선택하게 된다. 사용자의 선택이 끝나면 컴퓨터는 누가 무엇을
+선택하였고 누가 이겼는지, 비겼는지를 알려준다.
+
+순서 : 사용자에게서 가위바위보 입력 -> 적절한지 판단
+-> 적절하면 winner 함수로 컴퓨터의 값 실행
+-> 누가 이겼는지 판단 출력 -> 컴퓨터의 선택 출력
+*/
+#include <stdio.h> //std input, output을 포함한다.
+#include <stdlib.h> //std libray를 포함한다.
+
+void winner(int choice) { //winner 함수 사용자 선택 넣기
+	int computer = rand() % 3 + 1;
+	//컴퓨터의 선택 랜덤하게 생성
+	if (choice == computer) { //비길경우
+		//사1 컴1, 사2 컴2, 사3 컴3
+		printf("비겼습니다.\n");
+		//비김 출력
+	}
+	else if ((choice - computer) == 1 || (choice - computer == -2)) {
+		//사2 컴1, 사3 컴2, 사1 컴3
+		printf("사용자가 이겼습니다.");
+		//이김 출력
+	}
+	else {//사1 컴2, 사2 컴3, 사3 컴1
+		printf("사용자가 졌습니다.");
+		//짐 출력
+	}
+	switch (computer) { //컴퓨터의 선택에 따라
+	case 1: //컴퓨터는 가위
+		printf("컴퓨터는 가위");
+		break;
+	case 2: //컴퓨터는 바위
+		printf("컴퓨터는 바위");
+		break;
+	case 3: //컴퓨터는 보
+		printf("컴퓨터는 보");
+		break;
+	}
+}
+
+int main() { //main 함수를 넣어 프로그램을 실행한다.
+
+	srand(time(NULL)); //시간에 따라 랜덤하게 만들어주기
+
+	int choice = 0; //선택 변수
+	printf("선택 1. 가위 2. 바위 3. 보");
+	//선택안내 출력
+	scanf_s("%d", &choice);
+	//선택 입력
+	if (choice < 1 || choice > 3) { //1보다 작거나 3보다 큰 입력 시
+		printf("잘못된 선택입니다. 가위, 바위, 보 중 하나 내세요\n");
+	}
+	else { //1부터 3사이 수 입력
+		winner(choice);
+		//우승자 판단 함수 실행
+	}
+	return 0; //끝냄
+}

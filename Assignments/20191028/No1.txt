@@ -1,0 +1,135 @@
+/*
+[과제#5-1] 함수를 이용한 사칙연산 프로그램
+
+문제: 지난주 과제#5로 수행했던 사칙연산 프로그램에 대해 각각 덧셈함수, 뺄셈
+함수, 곱셈함수, 나눗셈 함수 등등 필요한 함수들을 가급적 많이 만들어서
+다시 작성하시오.
+두 수를 입력하세요:
+******* 연산메뉴 *******
+1. 덧셈
+2. 뺄셈
+3. 곱셈
+4. 나눗셈
+5. 종료
+수행할 연산을 선택하세요:
+추가로 고민할 문제
+1. 오류메시지 처리 (분모가 0일 때, 메뉴 이외의 숫자 입력 시)
+2. 반복문(While)을 이용해서 반복해서 연산 수행, 종료메뉴를 선택할 때까지
+3. 메뉴 추가 : 두 수 재 입력 / 나머지 연산
+*/
+#include <stdio.h>
+#include <stdlib.h>
+
+void add(int fir, int sec);
+//덧셈 함수 있음 표시
+void sub(int fir, int sec);
+//뺄셈 함수 있음 표시
+void mul(int fir, int sec);
+//곱셈 함수 있음 표시
+void divide(int fir, int sec);
+//나누기 함수 있음 표시
+void fir_sec(int* firr, int* secr);
+//다시 입력 함수 있음 표시
+void remain(int fir, int sec);
+//나머지 함수 있음 표시
+
+int main() {
+
+	int fir, sec;
+	int* firr, * secr; 
+	//다시 입력할 때 함수를 사용하기 위함
+	firr = &fir;
+	secr = &sec;
+	//fir과 sec에 각 주소값 연결
+	int choice = 0;
+	fir_sec(&fir, &sec);
+	//첫번째로 입력받기
+
+	while (choice != 7) {
+		//7번을 눌러 종료할때까지 반복하기
+
+		printf("******* 연산메뉴 *******\n");
+		printf("1. 덧셈");
+		printf("2. 뺄셈");
+		printf("3. 곱셈");
+		printf("4. 나눗셈");
+		printf("5. 두 수 재 입력");
+		printf("6. 나머지 연산");
+		printf("7. 종료\n");
+		printf("수행할 연산을 선택하세요:");
+		scanf_s("%d", &choice);
+		//실행할 메뉴 보여주고 선택 값 입력받기
+		
+		switch (choice)
+		{
+		case 1:
+			add(fir, sec);
+			break;
+			//더하기 함수 실행
+		case 2:
+			sub(fir, sec);
+			break;
+			//빼기 함수 실행
+		case 3:
+			mul(fir, sec);
+			break;
+			//곱하기 함수 실행
+		case 4:
+			divide(fir, sec);
+			break;
+			//나누기 함수 실행
+		case 5:
+			fir_sec(firr, secr);
+			break;
+			//입력받는 함수 실행
+		case 6:
+			remain(fir, sec);
+			break;
+			//나머지 함수 실행
+		case 7:
+			break;
+			break;
+			//7이면 빠져나가기
+		default:
+			printf("잘못된 입력입니다. 다시 입력하세요");
+			break;
+			//그 외의 숫자가 들어갔을 때 잘못된 알려줌
+		}
+	}
+	return 0;
+}
+
+void add(int fir, int sec) {
+	int result = fir + sec;
+	printf("\n덧셈의 결과는 %d\n", result);
+} //더해서 나온 값 출력
+void sub(int fir, int sec) {
+	int result = fir - sec;
+	printf("\n뺄셈의 결과는 %d\n", result);
+} //빼서 나온 값 출력
+void mul(int fir, int sec) {
+	int result = fir * sec;
+	printf("\n곱셈의 결과는 %d\n", result);
+} //곱해서 나온 값 출력
+void divide(int fir, int sec) {
+	double result = (double)fir / sec;
+	printf("\n나눗셈의 몫은 %lf\n", result);
+} //나누어서 나온 값 출력
+void remain(int fir, int sec) {
+	int result = fir % sec;
+	printf("\n나눗셈의 나머지는 %d\n", result);
+} //나머지 연산해서 나온 값 출력
+
+void fir_sec(int* firr, int* secr) {
+	printf("\n두 수를 입력하세요:");
+	scanf_s("%d %d", firr, secr);
+}//포인터를 이용해 연결해 함수로 값을 바꿀 수 있도록 함
+
+/*
+요구사항해결
+1. switch문에서 defalut를 사용해 예외처리를 함
+2. 7번이 아니면(종료조건이 아닐 시) 계속 반복하도록 구현함
+3. 
+3-1. 두 수 재입력 : 함수에서 포인터를 이용해 값을 변경 가능하도록 함
+3-2. 나눗셈 나머지 함수 : 나머지 연산자를 이용해 함수로 만들어 처리함
+*/
